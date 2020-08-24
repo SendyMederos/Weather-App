@@ -10,7 +10,7 @@ function listOfCities() {
 
 function renderAll() {
 
-    var currentURL = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=420fa54141903a76b9ac423622e9920d`
+    var currentURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=420fa54141903a76b9ac423622e9920d`
     $.ajax({
         url: currentURL,
         method: "GET"
@@ -24,7 +24,6 @@ function renderAll() {
         
         var iconUrl = "https://openweathermap.org/img/w/" + iconCode + ".png";
         $("#currentWeather").append(`<h2>${response.name} <img src = "${iconUrl}"class="icon"> </h2> `)
-       // $("#currentWeather").append(``)
         $("#currentWeather").append('<h4>' + time + '</h4> <hr>')
 
         var oneCallURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&" + "lon=" + lon + "&units=imperial&exclude=minutely,hourly&appid=420fa54141903a76b9ac423622e9920d"
