@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./style.css">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+    crossorigin="anonymous"/>
 
 </head>
 
@@ -19,17 +20,24 @@
         
     </header>
     <aside>
-        <h3>Search by City: </h3>
-        <input type="text" class="form-control" placeholder="City" value=""> </input>
-        <button type="button" class="start btn btn-outline-info">
-            <i class="fas fa-search"><br> Save</i>
-        </button>
+        <form >
+            <label for= "UserInput"><h3>Search by City:  </h3></label><br>
+            <div  class="input-group">
+                <input type="text" class="form-control input" placeholder="City" value="" id= "input">
+                <button  type="submit" class="start btn btn-outline-info">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>  
+        </form>
+        <ul id = "cities" class="list-group">
+        
+        </ul>
     </aside>
-    <main class = "container" id="weather" >
-        <content id="currentWeather" class = "container card">
+    <main class = "container " id="weather" >
+        <content id="currentWeather" class = "card">
 
         </content>  
-      
+        <h3 id = "5day" class = "cincodias"></h3>
         <section id = "five-days" class = "float-right card-deck">
 
         </section>
