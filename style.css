@@ -102,3 +102,6 @@ h2{
  .italic {
     padding-left: 50px;
 }
+ul li{
+    cursor: pointer;
+}

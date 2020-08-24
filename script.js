@@ -1,12 +1,17 @@
 var uvIndex;
 var cityName = localStorage.getItem('lastCity') || "Charlotte";
 var cities = JSON.parse(localStorage.getItem("cities")) || [];
+// var cities = removeduplicates(cities);
 
+// function removeduplicates(data){
+//     return data.filter((value, index) => data.indexOf(value) === index);
+// }
+// console.log(cities)
 
 function renderCities() {
     $("#cities").empty();
     for (i=0; i< cities.length; i++){   
-        $("#cities").append(`<li id="city"class="list-group-item list-group-item-action list-group-item-light"> ${cities[i]} </li>`);
+        $("#cities").append(`<li id="${cities[i]}"class="list-group-item list-group-item-action list-group-item-light"> ${cities[i]} </li>`);
     }
 };
 
@@ -25,7 +30,11 @@ function uviChart (){
 }
 
 function listOfCities() {
-    $("#cities").prepend(`<li id="city"class="list-group-item list-group-item-action list-group-item-light"> ${cityName} </li>`);
+    for (i = 0; i < cities.length; i++) {
+        if (cityName == cities[i]) {
+            cities.splice(i, 1)
+        }
+    }
     cities.unshift(cityName)
     cities = cities.slice(0, 8);
     localStorage.setItem("cities", JSON.stringify(cities));
@@ -46,12 +55,13 @@ function renderAll() {
         var lat = response.coord.lat
         var lon = response.coord.lon
         var iconCode = response.weather[0].icon;
+
         
         var iconUrl = "https://openweathermap.org/img/w/" + iconCode + ".png";
         $("#currentWeather").append(`<h2>${response.name} <img src = "${iconUrl}"class="icon"> </h2> `)
         $("#currentWeather").append(`<i class="italic">${response.weather[0].description} <i>`)
         $("#currentWeather").append('<h4>' + time + '</h4> <hr>')
-      
+        
         var oneCallURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&" + "lon=" + lon + "&units=imperial&exclude=minutely,hourly&appid=420fa54141903a76b9ac423622e9920d"
 
         $.ajax({
@@ -91,18 +101,22 @@ $(".start").click(function (event) {
     renderAll();
     listOfCities();
 })
+
+
 $("ul").click(function(event){
     event.preventDefault();
-    if (event.target.matches("li")) {
-        
-        $("#currentWeather").empty();
-        $("#five-days").empty();
+    event.stopPropagation()
+    cityName = event.target.id
+    console.log(cityName);
+    $("#currentWeather").empty();
+    $("#five-days").empty();
+    localStorage.setItem('lastCity', cityName);
+    renderAll();
 
-        cityName = $("this").text();
-        console.log(cityName),
-        localStorage.setItem('lastCity', cityName);
-        renderAll();
-    }
 })
+
+
+
+
 renderCities();
 renderAll();
