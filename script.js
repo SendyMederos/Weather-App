@@ -1,10 +1,35 @@
-
+var uvIndex;
 var cityName = localStorage.getItem('lastCity') || "Charlotte";
+var cities = JSON.parse(localStorage.getItem("cities")) || [];
+
+
+function renderCities() {
+    $("#cities").empty();
+    for (i=0; i< cities.length; i++){   
+        $("#cities").append(`<li id="city"class="list-group-item list-group-item-action list-group-item-light"> ${cities[i]} </li>`);
+    }
+};
+
+function uviChart (){
+    if (uvIndex < 3){
+        $("#uvi").attr("class", "low")
+    }else if  (uvIndex < 6){
+        $("#uvi").attr("class", "medium")
+    }else if  (uvIndex < 8){
+        $("#uvi").attr("class", "high")
+    }else if  (uvIndex < 11){
+        $("#uvi").attr("class", "very_high")
+    }else {
+        $("#uvi").attr("class", "extreme")
+    }
+}
 
 function listOfCities() {
-
-    $("#cities").prepend(`<li class="list-group-item list-group-item-action list-group-item-light"> ${cityName} </li>`);
-
+    $("#cities").prepend(`<li id="city"class="list-group-item list-group-item-action list-group-item-light"> ${cityName} </li>`);
+    cities.unshift(cityName)
+    cities = cities.slice(0, 8);
+    localStorage.setItem("cities", JSON.stringify(cities));
+    renderCities();
 }
 
 
@@ -24,8 +49,9 @@ function renderAll() {
         
         var iconUrl = "https://openweathermap.org/img/w/" + iconCode + ".png";
         $("#currentWeather").append(`<h2>${response.name} <img src = "${iconUrl}"class="icon"> </h2> `)
+        $("#currentWeather").append(`<i class="italic">${response.weather[0].description} <i>`)
         $("#currentWeather").append('<h4>' + time + '</h4> <hr>')
-
+      
         var oneCallURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&" + "lon=" + lon + "&units=imperial&exclude=minutely,hourly&appid=420fa54141903a76b9ac423622e9920d"
 
         $.ajax({
@@ -37,7 +63,9 @@ function renderAll() {
             $("#currentWeather").append(`<p>Temperature: ${response.current.temp}°F</p>`)
             $("#currentWeather").append(`<p>Humidity: ${response.current.humidity}%</p>`)
             $("#currentWeather").append(`<p>Wind Speed: ${response.current.wind_speed}MPH</p>`)
-            $("#currentWeather").append(`<p>UV Index: ${response.current.uvi}</p>`)
+            $("#currentWeather").append(`<p>UV Index: <span id="uvi"> ${response.current.uvi} </span></p>`)
+            uvIndex = response.current.uvi;
+            uviChart();
             $("#5day").html("5-Day Forecast:")
             var fivedays = ["dayOne", "dayTwo", "dayThree", "dayFourth", "dayFive"]
             for (i = 1; i < 6; i++) {
@@ -63,5 +91,18 @@ $(".start").click(function (event) {
     renderAll();
     listOfCities();
 })
+$("ul").click(function(event){
+    event.preventDefault();
+    if (event.target.matches("li")) {
+        
+        $("#currentWeather").empty();
+        $("#five-days").empty();
 
+        cityName = $("this").text();
+        console.log(cityName),
+        localStorage.setItem('lastCity', cityName);
+        renderAll();
+    }
+})
+renderCities();
 renderAll();
