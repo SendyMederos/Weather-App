@@ -1,5 +1,7 @@
 # 06 Server-Side APIs: Weather Dashboard
 ```
+https://sendymederos.github.io/Weather-App/
+
 This app is build with HTML, styled with CSS, Bootstrap, and Fontawesome, powered by JavaScript Calling mutiple APIs;
 For a traveler,
 TO outlook the weather for multiple cities,
@@ -23,6 +25,7 @@ THEN the current and future conditions for that city displays
 WHEN the weather dashboard opens
 THEN the last searched city forecast displays
 ```
+https://sendymederos.github.io/Weather-App/
 
 The following image demonstrates the application functionality:
 
