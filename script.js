@@ -1,20 +1,18 @@
+///setting my global variables
 var uvIndex;
+/// cityName will initialize with the last city searched or the default Charlotte
 var cityName = localStorage.getItem('lastCity') || "Charlotte";
+///cities is an array that holds the last cities searched or an empty array
 var cities = JSON.parse(localStorage.getItem("cities")) || [];
-// var cities = removeduplicates(cities);
 
-// function removeduplicates(data){
-//     return data.filter((value, index) => data.indexOf(value) === index);
-// }
-// console.log(cities)
-
+//emptying rendering  the list of cities
 function renderCities() {
     $("#cities").empty();
     for (i=0; i< cities.length; i++){   
         $("#cities").append(`<li id="${cities[i]}"class="list-group-item list-group-item-action list-group-item-light"> ${cities[i]} </li>`);
     }
 };
-
+// this function will determine what class will the UV Index will have to determine its bg-color in css
 function uviChart (){
     if (uvIndex < 3){
         $("#uvi").attr("class", "low")
@@ -28,28 +26,36 @@ function uviChart (){
         $("#uvi").attr("class", "extreme")
     }
 }
-
+// I am including a new city in the array of cities that will render in as a list
 function listOfCities() {
+    //first making  sure that the new city(cityName) is not in the list, if it is, 
+    //then will delete it from that possition, so when is render, it will appear on top of the list
     for (i = 0; i < cities.length; i++) {
         if (cityName == cities[i]) {
             cities.splice(i, 1)
         }
     }
+    //adding it to the beginning of the array so it renders last to first city searched
     cities.unshift(cityName)
+    //only 8 cities will be permited in the array(in the list)
     cities = cities.slice(0, 8);
+    //passing as a string the new array
     localStorage.setItem("cities", JSON.stringify(cities));
+    //call render cities to create the list
     renderCities();
 }
 
-
+// main function where the APIs calls are being made /// made it a function so it ca  be callled multiple times
 function renderAll() {
-
+    //this url takes the city name and the api key as parameters// the city will be variable cityName 
+    // I am calling this api to access longitud and lattitud based on the city name
     var currentURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=420fa54141903a76b9ac423622e9920d`
     $.ajax({
         url: currentURL,
         method: "GET"
     }).then(function (response) {
         console.log(response)
+        //using moment js so we can render the desired format
         var time = moment(response.dt * 1000).format("MMMM, DD YYYY");
         console.log(time);
         var lat = response.coord.lat
@@ -61,7 +67,7 @@ function renderAll() {
         $("#currentWeather").append(`<h2>${response.name} <img src = "${iconUrl}"class="icon"> </h2> `)
         $("#currentWeather").append(`<i class="italic">${response.weather[0].description} <i>`)
         $("#currentWeather").append('<h4>' + time + '</h4> <hr>')
-        
+        /// once we got the lon and lat we can access to the api we will use to render mostly everything 
         var oneCallURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&" + "lon=" + lon + "&units=imperial&exclude=minutely,hourly&appid=420fa54141903a76b9ac423622e9920d"
 
         $.ajax({
@@ -90,7 +96,8 @@ function renderAll() {
         })
     })
 }
-
+///this function everytime you search for a city it grab the input and with the cityName call the APIs again
+/// and render everything including the new list of cities
 $(".start").click(function (event) {
     event.preventDefault();
     $("#currentWeather").empty();
@@ -102,7 +109,7 @@ $(".start").click(function (event) {
     listOfCities();
 })
 
-
+/// if clicked on the list items it will render the data for that city 
 $("ul").click(function(event){
     event.preventDefault();
     event.stopPropagation()
@@ -115,8 +122,6 @@ $("ul").click(function(event){
 
 })
 
-
-
-
+///automatically calling this functions so it renders the last city searched and/or the list of cities
 renderCities();
 renderAll();
