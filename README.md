@@ -1,5 +1,5 @@
 # 06 Server-Side APIs: Weather Dashboard
-https://sendymederos.github.io/Weather-App/
+_[ Link to deployed Application](https://sendymederos.github.io/Weather-App/)_
 
 ## Overview
 
@@ -27,7 +27,7 @@ THEN the last searched city forecast displays
 
 ## Link To the App
 
-_[ Link to deployed Application] (https://sendymederos.github.io/Weather-App/)_
+_[ Link to deployed Application](https://sendymederos.github.io/Weather-App/)_
 
 The following image demonstrates the application functionality:
 
