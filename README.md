@@ -1,14 +1,14 @@
 # 06 Server-Side APIs: Weather Dashboard
-```
-https://sendymederos.github.io/Weather-App/
+_[ Link to deployed Application](https://sendymederos.github.io/Weather-App/)_
+
+## Overview
 
 This app is build with HTML, styled with CSS, Bootstrap, and Fontawesome, powered by JavaScript Calling mutiple APIs;
 For a traveler,
 TO outlook the weather for multiple cities,
 SO THAT he can plan a trip accordingly.
-```
 
-```
+## Instructions
 GIVEN a weather dashboard with form inputs
 WHEN a city is searched
 THEN current and future conditions display for that city and that city is added to the search history
@@ -24,8 +24,10 @@ WHEN a city in the search history is clicked on
 THEN the current and future conditions for that city displays
 WHEN the weather dashboard opens
 THEN the last searched city forecast displays
-```
-https://sendymederos.github.io/Weather-App/
+
+## Link To the App
+
+_[ Link to deployed Application](https://sendymederos.github.io/Weather-App/)_
 
 The following image demonstrates the application functionality:
 
