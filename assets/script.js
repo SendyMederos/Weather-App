@@ -89,7 +89,7 @@ function renderAll() {
                 iconUrl = "https://openweathermap.org/img/w/" + iconCode + ".png";
                 $("#five-days").append(`<div id = "${fivedays[i]}" class = "five-days card" > </div>`);
                 $(`#${fivedays[i]}`).append(`<h5>${moment(response.daily[i].dt * 1000).format("ddd,  MMMM DD")}</h5>`);
-                $(`#${fivedays[i]}`).append(`<img src = "${iconUrl}" class="icon">`);
+                $(`#${fivedays[i]}`).append(`<img src = "${iconUrl}" class="icons">`);
                 $(`#${fivedays[i]}`).append(`<p>Temp: ${response.daily[i].temp.day}°F</p>`);
                 $(`#${fivedays[i]}`).append(`<p>Humidity: ${response.daily[i].humidity}%</p>`);
             }
@@ -125,3 +125,10 @@ $("ul").click(function(event){
 ///automatically calling this functions so it renders the last city searched and/or the list of cities
 renderCities();
 renderAll();
+
+
+// auto correct city names,
+//  render an error message if name isn't found,
+//  add city pictures,
+//  and make the cards carousel. 
+//  move search to the top and list a despliegable list 

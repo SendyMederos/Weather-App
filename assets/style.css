@@ -65,6 +65,11 @@ p {
     object-fit: none;
     float: left;
 }
+.icons{
+    object-fit: none;
+    margin: 5%;
+    max-block-size: 50px;
+}
 ul{
     margin-top: 70px;
 }
